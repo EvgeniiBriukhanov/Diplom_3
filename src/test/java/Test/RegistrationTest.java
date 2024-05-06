@@ -1,9 +1,10 @@
 package Test;
 
-import Constants.Constant;
 import Pages.HomePage;
 import Pages.LoginPage;
 import Pages.RegisterPage;
+import io.qameta.allure.Description;
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,6 +14,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
+import static Constants.Constant.URL_HOME_PAGE;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 
@@ -36,7 +39,7 @@ public class RegistrationTest {
     @Before
     public void actionBefore() {
         driver = getWebDriver(false);
-        driver.get(Constant.URL_HOME_PAGE);
+        driver.get(URL_HOME_PAGE);
     }
 
     @After
@@ -44,7 +47,8 @@ public class RegistrationTest {
         driver.quit();
     }
 
-
+    @DisplayName("Регистрация пользователя с валидными данными")
+    @Description("Успешное регистрация пользователя")
     @Test
     public void successUserRegistrationTest() {
         HomePage homePage = new HomePage(driver);
@@ -64,6 +68,9 @@ public class RegistrationTest {
         loginPage.waitStartLoginPage();
         assertTrue(loginPage.isStatusLoginHeaderDisplayed());
         }
+
+    @DisplayName("Регистрация пользователя с невалидным паролем")
+    @Description("Неудачная регистрация пользователя")
     @Test
     public void failedUserRegistrationTest() {
         HomePage homePage = new HomePage(driver);
@@ -76,12 +83,13 @@ public class RegistrationTest {
 
         RegisterPage registerPage = new RegisterPage(driver);
         registerPage.waitStartRegisterPage();
-        registerPage.setUserData("Cheburashka"+random,"Cheburashka+"+random+"@yandex.ru", "00");
+        registerPage.setUserData("Cheburashka"+random,"Cheburashka+"+random+"@yandex.ru", "00000");
         registerPage.waitClickRegistrationButton();
         registerPage.clickRegistrationButton();
 
         registerPage.waitErrorMessage();
         assertTrue(registerPage.isStatusErrorMessageDisplayed());
+        assertEquals("Некорректный пароль", registerPage.getTextErrorMessage());
     }
 }
 
