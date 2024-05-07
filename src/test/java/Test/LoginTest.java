@@ -51,7 +51,7 @@ public class LoginTest {
     }
 
     @DisplayName("Авторизация пользователя по кнопке Войти в аккаунт")
-    @Description("Успешное авторизация пользователя")
+    @Description("Проверка успешного авторизации пользователя")
     @Test
     public void userAuthorizationUsingLoginButtonTest() {
         HomePage homePage = new HomePage(driver);
@@ -61,6 +61,7 @@ public class LoginTest {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.waitStartLoginPage();
         loginPage.authorizationUser(email, password);
+        loginPage.waitClickLoginButton();
         loginPage.clickLoginButton();
 
         homePage.waitStartHomePage();
@@ -68,7 +69,7 @@ public class LoginTest {
     }
 
     @DisplayName("Авторизация пользователя по кнопке Личный кабинет")
-    @Description("Успешное авторизация пользователя")
+    @Description("Проверка успешного авторизации пользователя")
     @Test
     public void userAuthorizationUsingPersonalAccountButtonTest() {
         HomePage homePage = new HomePage(driver);
@@ -85,7 +86,7 @@ public class LoginTest {
     }
 
     @DisplayName("Авторизация пользователя через страницу регистрации")
-    @Description("Успешное авторизация пользователя")
+    @Description("Проверка успешного авторизации пользователя")
     @Test
     public void userAuthorizationInRegistrationFormTest() {
         RegisterPage registerPage = new RegisterPage(driver);
@@ -104,7 +105,7 @@ public class LoginTest {
     }
 
     @DisplayName("Авторизация пользователя через страницу восстановление пароля")
-    @Description("Успешное авторизация пользователя")
+    @Description("Проверка успешного авторизации пользователя")
     @Test
     public void userAuthorizationUsingRestorePasswordTest() {
         LoginPage loginPage = new LoginPage(driver);

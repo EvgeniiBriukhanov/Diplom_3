@@ -14,12 +14,12 @@ public class LoginPage {
     public LoginPage(WebDriver driver) {
         this.driver = driver;
     }
-    private final By LOGIN_PAGE_HEADER = By.xpath(".//*[text() = 'Вход']");
-    private final By REGISTRATION_BUTTON = By.xpath(".//*[text() = 'Зарегистрироваться']");
+    private final By LOGIN_PAGE_HEADER = By.xpath("//*[text() = 'Вход']");
+    private final By REGISTRATION_BUTTON = By.xpath("//*[text() = 'Зарегистрироваться']");
     private final By USER_EMAIL_FIELD = By.xpath("//label[text()='Email']/following-sibling::input");
     private final By USER_PASSWORD_FIELD = By.xpath("//input[@type='password']");
     private final By LOGIN_BUTTON = By.className("button_button__33qZ0");
-    private final By RESTORE_PASSWORD_BUTTON = By.xpath(".//*[text() = 'Восстановить пароль']");
+    private final By RESTORE_PASSWORD_BUTTON = By.xpath("//*[text() = 'Восстановить пароль']");
 
 
     private void clickButton(By button) {
@@ -29,7 +29,7 @@ public class LoginPage {
 
     @Step("Ожидание загрузки страницы Логина")
     public void waitStartLoginPage() {
-        new WebDriverWait(driver, 3)
+        new WebDriverWait(driver, 4)
                 .until(ExpectedConditions.visibilityOfElementLocated(LOGIN_PAGE_HEADER));
     }
 
@@ -52,6 +52,12 @@ public class LoginPage {
         driver.findElement(USER_EMAIL_FIELD).sendKeys(email);
         driver.findElement(USER_PASSWORD_FIELD).clear();
         driver.findElement(USER_PASSWORD_FIELD).sendKeys(password);
+    }
+
+    @Step("Ожидание на кликабельность кнопки Войти")
+    public void waitClickLoginButton() {
+        new WebDriverWait(driver, 1)
+                .until(ExpectedConditions.elementToBeClickable(LOGIN_BUTTON));
     }
 
     @Step("Нажатие на кнопку - Войти в аккаунт")

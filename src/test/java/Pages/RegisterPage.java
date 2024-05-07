@@ -47,7 +47,7 @@ public class RegisterPage {
 
     @Step("Ожидание на кликабельность кнопки Регистрации")
     public void waitClickRegistrationButton() {
-        new WebDriverWait(driver, 3)
+        new WebDriverWait(driver, 1)
                 .until(ExpectedConditions.elementToBeClickable(REGISTRATION_BUTTON));
     }
 
