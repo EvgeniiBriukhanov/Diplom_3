@@ -4,38 +4,22 @@ import Pages.HomePage;
 import Pages.LoginPage;
 import Pages.RegisterPage;
 import Pages.RestorePasswordPage;
+import Resources.WebDriver;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 
 import static Constants.Constant.URL_HOME_PAGE;
 import static org.junit.Assert.assertTrue;
 
-public class LoginTest {
-    private WebDriver driver;
+public class LoginTest extends WebDriver {
+    private org.openqa.selenium.WebDriver driver;
     public final int random = 1 + (int) (Math.random() * 100000);
     private final String name = "Zalogin" + random;
     private final String email = "Zalogin+" + random + "@yandex.ru";
     private final String password = "000000";
-
-    public WebDriver getWebDriver(boolean useFirefox) {
-        if (useFirefox) {
-            FirefoxOptions options = new FirefoxOptions();
-            options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
-            return new FirefoxDriver(options);
-        } else {
-            ChromeOptions options = new ChromeOptions();
-            options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
-            return new ChromeDriver(options);
-        }
-    }
 
     @Before
     public void actionBefore() {

@@ -1,34 +1,18 @@
 package Test;
 
 import Pages.HomePage;
+import Resources.WebDriver;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
 
 import static Constants.Constant.URL_HOME_PAGE;
 import static org.junit.Assert.assertTrue;
 
-public class ConstructorTest {
-    private WebDriver driver;
-
-    public WebDriver getWebDriver(boolean useFirefox) {
-        if (useFirefox) {
-            FirefoxOptions options = new FirefoxOptions();
-            options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
-            return new FirefoxDriver(options);
-        } else {
-            ChromeOptions options = new ChromeOptions();
-            options.addArguments("--no-sandbox", "--headless", "--disable-dev-shm-usage");
-            return new ChromeDriver(options);
-        }
-    }
+public class ConstructorTest extends WebDriver {
+    private org.openqa.selenium.WebDriver driver;
 
     @Before
     public void actionBefore() {
@@ -47,11 +31,9 @@ public class ConstructorTest {
     public void checkBunsTest() {
         HomePage homePage = new HomePage(driver);
         homePage.waitStartHomePage();
-        homePage.clickSauceButton();
-        homePage.waitingForTheSauceSectionToAppear();
+        homePage.clickStuffingButton();
         homePage.clickBunButton();
-        homePage.waitingForTheBunsSectionToAppear();
-        assertTrue(homePage.isBunSectionDisplayed());
+        assertTrue(homePage.isBunEnabled());
     }
 
     @DisplayName("Переход  разделу - Соусы")
@@ -61,8 +43,7 @@ public class ConstructorTest {
         HomePage homePage = new HomePage(driver);
         homePage.waitStartHomePage();
         homePage.clickSauceButton();
-        homePage.waitingForTheSauceSectionToAppear();
-        assertTrue(homePage.isSauceSectionDisplayed());
+        assertTrue(homePage.isSauceEnabled());
     }
 
     @DisplayName("Переход  разделу - Начинка")
@@ -72,7 +53,7 @@ public class ConstructorTest {
         HomePage homePage = new HomePage(driver);
         homePage.waitStartHomePage();
         homePage.clickStuffingButton();
-        homePage.waitingForTheStuffingSectionToAppear();
-        assertTrue(homePage.isStuffingSectionDisplayed());
+        assertTrue(homePage.isStuffingEnabled());
+
     }
 }
